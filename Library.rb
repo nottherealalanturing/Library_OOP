@@ -1,3 +1,18 @@
+class Book
+    attr_reader :@title
+    attr_reader :author
+    
+    def initialize(title, author)
+        @title = title
+        @author = author
+        @rentals = []
+    end
+
+    def add_rental(name, date)
+        @rentals.push({name: name, date: date})
+    end
+end 
+
 class Person
     attr_reader :@name
     attr_reader :@age
@@ -33,3 +48,5 @@ class Person
     end
 
 end
+
+class Student < Person
