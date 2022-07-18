@@ -19,7 +19,7 @@ git clone git@github.com:nottherealalanturing/Library_OOP.git
 ```terminal
 cd Library_OOP
 ```
-## Authors
+## Author
 
 
 👤 **Assad Isah**
