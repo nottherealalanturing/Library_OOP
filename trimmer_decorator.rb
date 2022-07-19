@@ -7,6 +7,6 @@ class TrimmerDecorator < BaseDecorator
   end
 
   def correct_name
-    @nameable.correct_name.slice(0..10)
+    @nameable.correct_name.slice(0..9)
   end
 end
