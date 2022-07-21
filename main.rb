@@ -147,7 +147,7 @@ class App
         puts "Rental created successfully"
     end
 
-    def list_rentals(id)
+    def list_rentals
         print "ID of person: "
         id = gets.chomp
         puts "Rentals: "
@@ -189,7 +189,7 @@ class App
             when "5"
                 create_rental
             when "6"
-                puts "6 a"   
+                list_rentals
             else
                 puts "Invalid Input" 
             end
