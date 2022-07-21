@@ -6,8 +6,6 @@ require './student'
 require './teacher'
 
 class App
-    
-    
     def initialize
         @books = []    
         @people = []
@@ -15,27 +13,21 @@ class App
     end
 
     def list_all_books
-        if @books.count == 0
+        if @books.empty?
             puts "Book's database is empty, please add a book"
         else
             @books.each_with_index do |book, index|
-                puts "#{index + 1}) Title: \"#{book.title}\", Author: \"#{book.author}\" "
+                puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\" "
             end
         end
     end
 
     def list_all_people
-        if @people.count == 0
+        if @people.empty?
             puts "People's database is empty, please add a person"
         else
             @people.each_with_index do |person, index|
-                if person.instance_of? Student
-                    puts "#{index + 1}) [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-                elsif person.instance_of? Teacher
-                    puts "#{index + 1}) [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-                else
-                    puts "Invalid input"
-                end
+                puts "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n"
             end
         end
     end
@@ -110,56 +102,51 @@ class App
     end
 
     def create_rental
-        puts "Select a book from the following list by number"
-        if @books.count == 0
-            puts "Book's database is empty, please add a book"
-            return "Invalid"
-        else
-            @books.each_with_index do |book, index|
-                puts "#{index + 1}) Title: \"#{book.title}\", Author: \"#{book.author}\" "
-            end
+        if @people.empty? || @books.empty?
+            puts 'Either of your Library is empty' 
+            return
         end
-        bookSelection = gets.chomp
-        book = @books[bookSelection - 1]
+        puts "Select a book from the following list by number"
+        
+        @books.each_with_index do |book, index|
+            puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\" "
+        end
+
+        book_index = gets.chomp.to_i
+        book = @books[book_index]
 
         puts "Select a person from the following list by number (not ID)"
-        if @people.count == 0
-            puts "People's database is empty, please add a person"
-        else
-            @people.each_with_index do |person, index|
-                if person.instance_of? Student
-                    puts "#{index + 1}) [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-                elsif person.instance_of? Teacher
-                    puts "#{index + 1}) [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-                else
-                    puts "Invalid input"
-                end
-            end
+        @people.each_with_index do |person, index|
+            print "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n"
         end
-        personSelection = gets.chomp
-        person = @people[personSelection - 1]
+        person_index = gets.chomp.to_i
+        person = @people[person_index]
 
         print "Date: "
         date = gets.chomp
 
-        Rental.new(date, book, person);
-
+        rental = Rental.new(date, book, person);
+        @rentals.push(rental)
         puts "Rental created successfully"
     end
 
     def list_rentals
-        print "ID of person: "
-        id = gets.chomp
-        puts "Rentals: "
-        rentalsforid = []
-        @rentals.each do |rental|
-            rentalsforid.push(rental) if rental.person.id == id.to_i
+        print 'ID of person: '
+        id = gets.chomp.to_i
+    
+        puts 'Rentals: '
+    
+        rentals = @rentals.select { |rental| rental.person.id == id }
+    
+        if rentals.empty?
+          puts 'No rentals found'
+          return
         end
-
-        rentalsforid.each do |rental, index|
-            puts "Date: #{rental.date}, Book #{rental.book.title} by #{rental.book.author}"
+    
+        rentals.each do |rental|
+          print "Date: #{rental.date}, Book \'#{rental.book.title}\' by #{rental.book.author}\n"
         end
-    end
+      end
 
 
     def run
