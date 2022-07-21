@@ -5,7 +5,9 @@ class Student < Person
 
   def initialize(age, parent_permision = 'true', name = 'unknown', classroom = nil)
     @classroom = classroom
-    classroom.students.push(self) unless classroom.students.include?(self)
+    unless classroom.nil?
+      (classroom.students.push(self) unless classroom.students.include?(self)) 
+    end
     super(age, name, parent_permision)
   end
 

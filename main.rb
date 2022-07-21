@@ -3,6 +3,7 @@ require './book'
 require './rental'
 require './classroom'
 require './student'
+require './teacher'
 
 class App
     
@@ -45,22 +46,22 @@ class App
         person = gets.chomp until person == "1" || person == "2"
 
         if person == "1" 
-            puts "Age: "
+            print "Age: "
             age = gets.chomp
 
-            puts "Name: "
+            print "Name: "
             name = gets.chomp.downcase
 
-            puts "Has parent permission? [Y/N]: "
+            print "Has parent permission? [Y/N]: "
             permission = gets.chomp.downcase
         elsif person == "2"
-            puts "Age: "
+            print "Age: "
             age = gets.chomp
 
-            puts "Name: "
+            print "Name: "
             name = gets.chomp.downcase
 
-            puts "Specialization: "
+            print "Specialization: "
             specialization = gets.chomp.downcase
         else
             return "Invalid input"
@@ -89,11 +90,13 @@ class App
     def create_book
         age, person, name, permission, newstudent, newteacher = nil
         
-        puts "Title: "
+        print "Title: "
         title = gets.chomp
 
-        puts "Author: "
+        print "Author: "
         author = gets.chomp
+
+        puts ""
 
         newbook = Book.new(title, author)
         
@@ -123,13 +126,13 @@ class App
         until start_function == "7"
             case start_function
             when "1"
-                
+                list_all_books
             when "2"
-                puts "2 a"
+                list_all_people
             when "3"
-                puts "3 a"
+                create_person
             when "4"
-                puts "4 a"
+                create_book
             when "5"
                 puts "5 a"
             when "6"
