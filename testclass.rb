@@ -7,7 +7,7 @@ require './student'
 classroom1 = Classroom.new('class 1')
 classroom2 = Classroom.new('class 2')
 
-student1 = Student.new(classroom1, 25, 'false', 'Assad')
+student1 = Student.new(25, 'false', 'Assad', classroom1)
 
 puts 'before'
 puts 'class 1'
