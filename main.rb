@@ -11,14 +11,15 @@ class App
     def initialize
         @books = []    
         @people = []
+        @rentals = []
     end
 
     def list_all_books
         if @books.count == 0
             puts "Book's database is empty, please add a book"
         else
-            @books.each do |book|
-                puts "Title: \"#{book.title}\", Author: \"#{book.author}\" "
+            @books.each_with_index do |book, index|
+                puts "#{index + 1}) Title: \"#{book.title}\", Author: \"#{book.author}\" "
             end
         end
     end
@@ -27,11 +28,11 @@ class App
         if @people.count == 0
             puts "People's database is empty, please add a person"
         else
-            @people.each do |person|
+            @people.each_with_index do |person, index|
                 if person.instance_of? Student
-                    puts "[Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+                    puts "#{index + 1}) [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
                 elsif person.instance_of? Teacher
-                    puts "[Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+                    puts "#{index + 1}) [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
                 else
                     puts "Invalid input"
                 end
@@ -108,6 +109,58 @@ class App
         end
     end
 
+    def create_rental
+        puts "Select a book from the following list by number"
+        if @books.count == 0
+            puts "Book's database is empty, please add a book"
+            return "Invalid"
+        else
+            @books.each_with_index do |book, index|
+                puts "#{index + 1}) Title: \"#{book.title}\", Author: \"#{book.author}\" "
+            end
+        end
+        bookSelection = gets.chomp
+        book = @books[bookSelection - 1]
+
+        puts "Select a person from the following list by number (not ID)"
+        if @people.count == 0
+            puts "People's database is empty, please add a person"
+        else
+            @people.each_with_index do |person, index|
+                if person.instance_of? Student
+                    puts "#{index + 1}) [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+                elsif person.instance_of? Teacher
+                    puts "#{index + 1}) [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+                else
+                    puts "Invalid input"
+                end
+            end
+        end
+        personSelection = gets.chomp
+        person = @people[personSelection - 1]
+
+        print "Date: "
+        date = gets.chomp
+
+        Rental.new(date, book, person);
+
+        puts "Rental created successfully"
+    end
+
+    def list_rentals(id)
+        print "ID of person: "
+        id = gets.chomp
+        puts "Rentals: "
+        rentalsforid = []
+        @rentals.each do |rental|
+            rentalsforid.push(rental) if rental.person.id == id.to_i
+        end
+
+        rentalsforid.each do |rental, index|
+            puts "Date: #{rental.date}, Book #{rental.book.title} by #{rental.book.author}"
+        end
+    end
+
 
     def run
         puts "Welcome to School Library App!"
@@ -134,7 +187,7 @@ class App
             when "4"
                 create_book
             when "5"
-                puts "5 a"
+                create_rental
             when "6"
                 puts "6 a"   
             else
