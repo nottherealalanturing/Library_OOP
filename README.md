@@ -24,7 +24,7 @@ cd Library_OOP
 
 👤 **Assad Isah**
 
-- Github: [@nottherealalanturing](https://github.com/nottherealalanturing)
+- Github: [nottherealalanturing](https://github.com/nottherealalanturing)
 - LinkedIn: [Assad Isah](https://linkedin.com/in/assadisah)
 
 
