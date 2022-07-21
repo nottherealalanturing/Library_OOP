@@ -7,7 +7,7 @@ require './student'
 classroom1 = Classroom.new('class 1')
 classroom2 = Classroom.new('class 2')
 
-student1 = Student.new(classroom1, 25, 'false', 'Assad')
+student1 = Student.new(25, 'false', 'Assad', classroom1)
 
 puts 'before'
 puts 'class 1'
@@ -43,9 +43,9 @@ Rental.new('2017-12-22', book1, person1)
 Rental.new('2027-22-22', book1, person2)
 Rental.new('2027-22-22', book2, person2)
 
-puts book_1.rentals.count
+puts book1.rentals.count
 puts book2.rentals.count
-book_1.rentals.map { |rental| puts rental.date }
+book1.rentals.map { |rental| puts rental.date }
 
 person1.rentals.count
 person1.rentals.map { |rental| puts rental.book.title }
