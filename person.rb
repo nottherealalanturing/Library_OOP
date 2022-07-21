@@ -9,6 +9,7 @@ class Person < Nameable
     @name = name
     @age = age
     @parent_permision = parent_permision
+    @rentals = []
     super()
   end
 

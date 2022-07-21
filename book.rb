@@ -3,5 +3,8 @@ class Book
     def initialize(title, book)
         @title = title
         @book = book
+        @rentals = []
     end
+    
+    
 end
