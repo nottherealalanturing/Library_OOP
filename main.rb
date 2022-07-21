@@ -1,9 +1,11 @@
+require './person'
+require './book'
+require './rental'
+require './classroom'
+require './student'
+
 class App
-    include './person'
-    include './book'
-    include './rental'
-    include './classroom'
-    include './student'
+    
     
     def initialize
         @books = []    
@@ -67,13 +69,41 @@ class App
         permission == "y" ? permission = "true": permission = "false"
         if person == "1"
             newstudent = Student.new(age, permission,name)
+            if @people.include?(newstudent)
+                puts "Student already in database"
+            else
+                @people.push(newstudent)
+                puts "Person created successfully"
+            end
         else
             newteacher = Teacher.new(specialization, age, name, permission)
+            if @people.include?(newteacher)
+                puts "Teacher already in database"
+            else
+                @people.push(newteacher)
+                puts "Person created successfully"
+            end
         end
     end
 
-    
+    def create_book
+        age, person, name, permission, newstudent, newteacher = nil
+        
+        puts "Title: "
+        title = gets.chomp
 
+        puts "Author: "
+        author = gets.chomp
+
+        newbook = Book.new(title, author)
+        
+        if @books.include?(newbook)
+            puts "Book already in database"
+        else
+            @books.push(newbook)
+            puts "Book created successfully"
+        end
+    end
 
 
     def run
@@ -91,7 +121,33 @@ class App
         start_function = gets.chomp
         
         until start_function == "7"
-            puts "assad"
+            case start_function
+            when "1"
+                
+            when "2"
+                puts "2 a"
+            when "3"
+                puts "3 a"
+            when "4"
+                puts "4 a"
+            when "5"
+                puts "5 a"
+            when "6"
+                puts "6 a"   
+            else
+                puts "Invalid Input" 
+            end
+            
+            puts "Welcome to School Library App!"
+            puts ""
+            puts "Please choose an option by entering a number:"
+            puts "1 - List all books"
+            puts "2 - List all people"
+            puts "3 - Create a person"
+            puts "4 - Create a book"
+            puts "5 - Create a rental"
+            puts "6 - List all rentals for a given person id"
+            puts "7 - Exit"
             start_function = gets.chomp
         end
             
