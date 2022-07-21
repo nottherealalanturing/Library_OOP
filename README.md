@@ -3,7 +3,7 @@
 
 ## Library_OOP
 
-- An OOP ruby script that simulates a Library, Student and Teacher
+- A simple interactive console app that uses OOP concepts to simulate a book rental library.
 
 ## Build
 
