@@ -136,8 +136,6 @@ class App
       return
     end
 
-    rentals.each do |rental|
-      print "Date: #{rental.date}, Book \'#{rental.book.title}\' by #{rental.book.author}\n"
-    end
+    rentals.each { |rental| print "Date: #{rental.date}, Book \'#{rental.book.title}\' by #{rental.book.author}\n" }
   end
 end
