@@ -16,7 +16,7 @@ class App
     if @books.empty?
       puts "Book's database is empty, please add a book"
     else
-      @books.each_with_index { |book, index| puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\" " }
+      @books.each_with_index { |book, index| puts %(#{index}\) Title: "#{book.title}", Author: "#{book.author}" ) }
     end
   end
 
