@@ -16,9 +16,7 @@ class App
     if @books.empty?
       puts "Book's database is empty, please add a book"
     else
-      @books.each_with_index do |book, index|
-        puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\" "
-      end
+      @books.each_with_index { |book, index| puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\" " }
     end
   end
 
@@ -26,9 +24,7 @@ class App
     if @people.empty?
       puts "People's database is empty, please add a person"
     else
-      @people.each_with_index do |person, index|
-        puts "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n"
-      end
+      @people.each_with_index { |person, index| puts "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n" }
     end
   end
 
@@ -100,17 +96,13 @@ class App
     else
       puts 'Select a book from the following list by number'
 
-      @books.each_with_index do |book, index|
-        puts %(#{index}\) Title: "#{book.title}", Author: "#{book.author}" )
-      end
+      @books.each_with_index { |book, index| puts %(#{index}\) Title: "#{book.title}", Author: "#{book.author}" ) }
 
       book_index = gets.chomp.to_i
       book = @books[book_index]
 
       puts 'Select a person from the following list by number (not ID)'
-      @people.each_with_index do |person, index|
-        print "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n"
-      end
+      @people.each_with_index { |person, index| print "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n" }
       person_index = gets.chomp.to_i
       person = @people[person_index]
 
