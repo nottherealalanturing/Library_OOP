@@ -24,107 +24,111 @@ class App
     if @people.empty?
       puts "People's database is empty, please add a person"
     else
-      @people.each_with_index { |person, index| puts "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n" }
+      @people.each_with_index do |person, index|
+        puts "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n"
+      end
     end
   end
 
   def create_person
-    puts "Do you want to create a student (1) or a teacher (2)? [Input the number]:"
+    puts 'Do you want to create a student (1) or a teacher (2)? [Input the number]:'
     person = gets.chomp until %w[1 2].include?(person)
 
     case person
-    when "1"
-      print "Age: "
+    when '1'
+      print 'Age: '
       age = gets.chomp
 
-      print "Name: "
+      print 'Name: '
       name = gets.chomp.capitalize
 
-      print "Has parent permission? [Y/N]: "
+      print 'Has parent permission? [Y/N]: '
       permission = gets.chomp.downcase
 
       newstudent = Student.new(age, permission, name)
       if @people.include?(newstudent)
-        puts "Student already in database"
+        puts 'Student already in database'
       else
         @people.push(newstudent)
-        puts "Person created successfully"
+        puts 'Person created successfully'
       end
-    when "2"
-      print "Age: "
+    when '2'
+      print 'Age: '
       age = gets.chomp
 
-      print "Name: "
+      print 'Name: '
       name = gets.chomp.capitalize
 
-      print "Specialization: "
+      print 'Specialization: '
       specialization = gets.chomp.capitalize
       newteacher = Teacher.new(specialization, age, name, permission)
       if @people.include?(newteacher)
-        puts "Teacher already in database"
+        puts 'Teacher already in database'
       else
         @people.push(newteacher)
-        puts "Person created successfully"
+        puts 'Person created successfully'
       end
     else
-      "Invalid input"
+      'Invalid input'
     end
   end
 
   def create_book
-    print "Title: "
+    print 'Title: '
     title = gets.chomp
 
-    print "Author: "
+    print 'Author: '
     author = gets.chomp
 
-    puts ""
+    puts ''
 
     newbook = Book.new(title, author)
 
     if @books.include?(newbook)
-      puts "Book already in database"
+      puts 'Book already in database'
     else
       @books.push(newbook)
-      puts "Book created successfully"
+      puts 'Book created successfully'
     end
   end
 
   def create_rental
     if @people.empty? || @books.empty?
-      puts "Either of your Library is empty"
+      puts 'Either of your Library is empty'
     else
-      puts "Select a book from the following list by number"
+      puts 'Select a book from the following list by number'
 
       @books.each_with_index { |book, index| puts %(#{index}\) Title: "#{book.title}", Author: "#{book.author}" ) }
 
       book_index = gets.chomp.to_i
       book = @books[book_index]
 
-      puts "Select a person from the following list by number (not ID)"
-      @people.each_with_index { |person, index| print "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n" }
+      puts 'Select a person from the following list by number (not ID)'
+      @people.each_with_index do |person, index|
+        print "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n"
+      end
       person_index = gets.chomp.to_i
       person = @people[person_index]
 
-      print "Date: "
+      print 'Date: '
       date = gets.chomp
 
       rental = Rental.new(date, book, person)
       @rentals.push(rental)
-      puts "Rental created successfully"
+      puts 'Rental created successfully'
     end
   end
 
   def list_rentals
-    print "ID of person: "
+    print 'ID of person: '
     id = gets.chomp.to_i
 
-    puts "Rentals: "
+    puts 'Rentals: '
 
     rentals = @rentals.select { |rental| rental.person.id == id }
 
     if rentals.empty?
-      puts "No rentals found"
+      puts 'No rentals found'
       return
     end
 
