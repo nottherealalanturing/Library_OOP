@@ -125,13 +125,17 @@ class App
 
     puts 'Rentals: '
 
-    rentals = @rentals.select { |rental| rental.person.id == id }
+    rentals = @rentals.select do 
+      |rental| rental.person.id == id 
+    end
 
     if rentals.empty?
       puts 'No rentals found'
       return
     end
 
-    rentals.each { |rental| print %(Date: #{rental.date}, Book "#{rental.book.title}" by #{rental.book.author}\n") }
+    rentals.each do
+      |rental| print %(Date: #{rental.date}, Book "#{rental.book.title}" by #{rental.book.author}\n") 
+    end
   end
 end
