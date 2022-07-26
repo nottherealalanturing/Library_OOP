@@ -5,10 +5,10 @@ require './classroom'
 require './student'
 require './teacher'
 class App
-  def initialize
-    @books = []
-    @people = []
-    @rentals = []
+  def initialize(books = [], people = [], rentals = [])
+    @books = books
+    @people = people
+    @rentals = rentals
   end
 
   def list_all_books

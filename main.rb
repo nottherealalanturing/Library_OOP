@@ -1,4 +1,5 @@
 require './app'
+require './persist'
 
 def prompts
   puts 'Welcome to School Library App!'
@@ -13,7 +14,7 @@ def prompts
   puts '7 - Exit'
 end
 
-def actions(input, app)
+def prompter(input, app)
   case input
   when '1'
     app.list_all_books
@@ -28,18 +29,37 @@ def actions(input, app)
   when '6'
     app.list_rentals
   else
-    puts 'Invalid Input'
+    puts ''
   end
+end
+
+def loadData
+  persist = Persist.new
+  books = persist.load('books')
+  people = persist.load('people')
+  rentals = persist.load('rentals')
+  return [books, people, rentals]
+end
+
+def saveData(app)
+  persist = Persist.new
+  books = persist.sav('books', app.books)
+  people = persist.load('people', app.people)
+  rentals = persist.load('rentals', app.rentals)
 end
 
 def main
   response = nil
-  app = App.new
+  books, people, rentals = loadData
+  app = App.new(books, people, rentals)
+  
   until response == '7'
     prompts
     response = gets.chomp
-    actions(response, app)
+    prompter(response, app)
   end
+  puts saveData(app)
+  
 end
 
 main
