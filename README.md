@@ -27,6 +27,10 @@ cd Library_OOP
 - Github: [nottherealalanturing](https://github.com/nottherealalanturing)
 - LinkedIn: [Assad Isah](https://linkedin.com/in/assadisah)
 
+👤 **Daniel Urimubenshi**
+
+- Github: [benshidanny11](https://github.com/benshidanny11)
+- LinkedIn: [Daniel Urimubenshi](https://www.linkedin.com/in/danielurimubenshi/)
 
 ## 🤝 Contributing
 
