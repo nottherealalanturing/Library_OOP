@@ -4,7 +4,6 @@ require './rental'
 require './classroom'
 require './student'
 require './teacher'
-
 class App
   def initialize
     @books = []
@@ -16,9 +15,7 @@ class App
     if @books.empty?
       puts "Book's database is empty, please add a book"
     else
-      @books.each_with_index do |book, index|
-        puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\" "
-      end
+      @books.each_with_index { |book, index| puts %(#{index}\) Title: "#{book.title}", Author: "#{book.author}" ) }
     end
   end
 
@@ -35,18 +32,14 @@ class App
   def create_person
     puts 'Do you want to create a student (1) or a teacher (2)? [Input the number]:'
     person = gets.chomp until %w[1 2].include?(person)
-
     case person
     when '1'
       print 'Age: '
       age = gets.chomp
-
       print 'Name: '
       name = gets.chomp.capitalize
-
       print 'Has parent permission? [Y/N]: '
       permission = gets.chomp.downcase
-
       newstudent = Student.new(age, permission, name)
       if @people.include?(newstudent)
         puts 'Student already in database'
@@ -57,10 +50,8 @@ class App
     when '2'
       print 'Age: '
       age = gets.chomp
-
       print 'Name: '
       name = gets.chomp.capitalize
-
       print 'Specialization: '
       specialization = gets.chomp.capitalize
       newteacher = Teacher.new(specialization, age, name, permission)
@@ -78,14 +69,10 @@ class App
   def create_book
     print 'Title: '
     title = gets.chomp
-
     print 'Author: '
     author = gets.chomp
-
     puts ''
-
     newbook = Book.new(title, author)
-
     if @books.include?(newbook)
       puts 'Book already in database'
     else
@@ -97,47 +84,34 @@ class App
   def create_rental
     if @people.empty? || @books.empty?
       puts 'Either of your Library is empty'
-      return
+    else
+      puts 'Select a book from the following list by number'
+      @books.each_with_index { |book, index| puts %(#{index}\) Title: "#{book.title}", Author: "#{book.author}" ) }
+      book_index = gets.chomp.to_i
+      book = @books[book_index]
+      puts 'Select a person from the following list by number (not ID)'
+      @people.each_with_index do |person, index|
+        print "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n"
+      end
+      person_index = gets.chomp.to_i
+      person = @people[person_index]
+      print 'Date: '
+      date = gets.chomp
+      rental = Rental.new(date, book, person)
+      @rentals.push(rental)
+      puts 'Rental created successfully'
     end
-    puts 'Select a book from the following list by number'
-
-    @books.each_with_index do |book, index|
-      puts "#{index}) Title: \"#{book.title}\", Author: \"#{book.author}\" "
-    end
-
-    book_index = gets.chomp.to_i
-    book = @books[book_index]
-
-    puts 'Select a person from the following list by number (not ID)'
-    @people.each_with_index do |person, index|
-      print "#{index}) [#{person.class}] Name: #{person.name.capitalize}, ID: #{person.id}, Age: #{person.age}\n"
-    end
-    person_index = gets.chomp.to_i
-    person = @people[person_index]
-
-    print 'Date: '
-    date = gets.chomp
-
-    rental = Rental.new(date, book, person)
-    @rentals.push(rental)
-    puts 'Rental created successfully'
   end
 
   def list_rentals
     print 'ID of person: '
     id = gets.chomp.to_i
-
     puts 'Rentals: '
-
     rentals = @rentals.select { |rental| rental.person.id == id }
-
     if rentals.empty?
       puts 'No rentals found'
       return
     end
-
-    rentals.each do |rental|
-      print "Date: #{rental.date}, Book \'#{rental.book.title}\' by #{rental.book.author}\n"
-    end
+    rentals.each { |rental| print %(Date: #{rental.date}, Book "#{rental.book.title}" by #{rental.book.author}\n") }
   end
 end

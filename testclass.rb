@@ -11,27 +11,19 @@ student1 = Student.new(25, 'false', 'Assad', classroom1)
 
 puts 'before'
 puts 'class 1'
-classroom1.students.each do |student|
-  puts student.name
-end
+classroom1.students.each { |student| puts student.name }
 
 puts 'class 2'
-classroom2.students.each do |student|
-  puts student.name
-end
+classroom2.students.each { |student| puts student.name }
 
 classroom2.add_student(student1)
 puts 'after'
 
 puts 'class 1'
-classroom1.students.each do |student|
-  puts student.name
-end
+classroom1.students.each { |student| puts student.name }
 
 puts 'class 2'
-classroom2.students.each do |student|
-  puts student.name
-end
+classroom2.students.each { |student| puts student.name }
 
 person1 = Person.new(22, 'maximilianus')
 person2 = Person.new(22, 'papandrious')
