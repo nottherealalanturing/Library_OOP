@@ -10,6 +10,7 @@ class App
     @people = []
     @rentals = []
   end
+
   def list_all_books
     if @books.empty?
       puts "Book's database is empty, please add a book"
@@ -17,6 +18,7 @@ class App
       @books.each_with_index { |book, index| puts %(#{index}\) Title: "#{book.title}", Author: "#{book.author}" ) }
     end
   end
+
   def list_all_people
     if @people.empty?
       puts "People's database is empty, please add a person"
@@ -26,6 +28,7 @@ class App
       end
     end
   end
+
   def create_person
     puts 'Do you want to create a student (1) or a teacher (2)? [Input the number]:'
     person = gets.chomp until %w[1 2].include?(person)
@@ -62,6 +65,7 @@ class App
       'Invalid input'
     end
   end
+
   def create_book
     print 'Title: '
     title = gets.chomp
@@ -76,6 +80,7 @@ class App
       puts 'Book created successfully'
     end
   end
+
   def create_rental
     if @people.empty? || @books.empty?
       puts 'Either of your Library is empty'
@@ -97,6 +102,7 @@ class App
       puts 'Rental created successfully'
     end
   end
+
   def list_rentals
     print 'ID of person: '
     id = gets.chomp.to_i
