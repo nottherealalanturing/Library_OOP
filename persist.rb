@@ -83,7 +83,7 @@ class Persist
 
       rental_data.each do |rental|
         temp_book = book?(books, rental['book_id'])
-        temp_person = Person?(people, rental['person_id'])
+        temp_person = person?(people, rental['person_id'])
         unless temp_book == -1 || temp_person == -1
           rentals << Rental.new(rental['date'], books[temp_book], people[temp_person])
         end
