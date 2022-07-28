@@ -1,15 +1,16 @@
 require 'json'
 
-module Persist
-    def save_books(books)
+class Persist
+    
+    def self.save_books(books)
         books_array = []
         books.each do |book|
-            books_array << {title: book.title, author: book.author, book_id: book.book_id}
+            books_array << {title: book.title, author: book.author, book_id: book.book_id || ""}
         end
-        File.write("books.json",  books_array , mode: "w")
+        File.write("./database/books.json",  JSON.generate(books_array) , mode: "w")
     end
 
-    def save_people(people)
+    def self.save_people(people)
         people_array = []
         people.each do |person|
             people_array << {
@@ -17,23 +18,24 @@ module Persist
                 age: person.age,
                 person_id: person.id,
                 name: person.name,
-                permission: person.permission,
-                specialization: person.specialization
+                permission: (person.class.to_s == "Student" ? person.parent_permision : ""),
+                specialization: (person.class.to_s == "Teacher" ? person.specialization : "")
             }         
         end
-        File.write("people.json",  people_array, mode: "w")
+        File.write("./database/people.json",  JSON.generate(people_array), mode: "w")
     end
 
-    def save_rentals(rentals)
+    def self.save_rentals(rentals)
         rentals_array = []
         rentals.each do |rental|
             rentals_array << {
                 person_id: rental.person.id,
-                book_id: rental.book.id,
+                book_id: rental.book.book_id,
                 date: rental.date
             }
         end
-        File.write("rentals.json",  rentals_array, mode: "w")
+        File.write("./database/rentals.json",  JSON.generate(rentals_array), mode: "w")
     end
 
+ 
 end

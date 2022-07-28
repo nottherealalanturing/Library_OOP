@@ -33,6 +33,7 @@ def prompter(input, app)
   end
 end
 
+=begin 
 def loadData
   persist = Persist.new
   books = persist.load('books')
@@ -46,19 +47,23 @@ def saveData(app)
   books = persist.sav('books', app.books)
   people = persist.load('people', app.people)
   rentals = persist.load('rentals', app.rentals)
-end
+end 
+=end
 
 def main
   response = nil
-  books, people, rentals = loadData
-  app = App.new(books, people, rentals)
+  #books, people, rentals = loadData
+  app = App.new()
   
   until response == '7'
     prompts
     response = gets.chomp
     prompter(response, app)
   end
-  saveData(app)
+  
+  Persist.save_books app.books
+  Persist.save_people app.people
+  Persist.save_rentals app.rentals
   
 end
 

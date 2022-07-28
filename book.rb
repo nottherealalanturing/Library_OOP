@@ -5,7 +5,7 @@ class Book
     @title = title
     @author = author
     @rentals = [] 
-    @book_id = nil;
+    @book_id = Random.rand(1..500);
   end
 
   def add_rental(date, person)
