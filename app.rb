@@ -8,7 +8,7 @@ require './persist'
 
 class App
   attr_reader :books, :people, :rentals
-  
+
   def initialize()
     @books = Persist.load_books
     @people = Persist.load_people

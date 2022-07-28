@@ -4,8 +4,8 @@ class Book
   def initialize(title, author)
     @title = title
     @author = author
-    @rentals = [] 
-    @book_id = Random.rand(1..500);
+    @rentals = []
+    @book_id = Random.rand(1..500)
   end
 
   def add_rental(date, person)
