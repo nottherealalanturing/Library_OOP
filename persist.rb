@@ -1,4 +1,5 @@
 require 'json'
+require 'fileutils'
 require './book'
 
 class Persist
@@ -8,6 +9,7 @@ class Persist
         books.each do |book|
             books_array << {title: book.title, author: book.author, book_id: book.book_id || ""}
         end
+        FileUtils.mkdir_p("./database/") unless File.exist?("./database/books.json") 
         File.write("./database/books.json",  JSON.generate(books_array) , mode: "w")
     end
 
@@ -23,6 +25,7 @@ class Persist
                 specialization: (person.class.to_s == "Teacher" ? person.specialization : "")
             }         
         end
+        FileUtils.mkdir_p("./database/") unless File.exist?("./database/people.json") 
         File.write("./database/people.json",  JSON.generate(people_array), mode: "w")
     end
 
@@ -35,6 +38,7 @@ class Persist
                 date: rental.date
             }
         end
+        FileUtils.mkdir_p("./database/") unless File.exist?("./database/rentals.json") 
         File.write("./database/rentals.json",  JSON.generate(rentals_array), mode: "w")
     end
 
@@ -45,8 +49,8 @@ class Persist
             books_data = JSON.parse(books_json)
 
             books_data.each do |book|
-                temp = Book.new(book.title, book.author)
-                temp.id=(book.id)
+                temp = Book.new(book["title"], book["author"])
+                temp.book_id=(book["book_id"])
                 books << temp
             end
         end
@@ -60,10 +64,14 @@ class Persist
             people_data = JSON.parse(people_json)
 
             people_data.each do |person|
-                if person.class.to_s == "Student"
-                    people << Student.new(person.age, person.parent_permision, person.name)
+                if person["type"] == "Student"
+                    temp = Student.new(person["age"], person["parent_permision"], person["name"])
+                    temp.id=(person["person_id"])
+                    people << temp
                 else
-                    people << Teacher.new(person.specialization, person.age, person.name, person.permission)
+                    temp =  Teacher.new(person["specialization"], person["age"], person["name"], person["permission"])
+                    temp.id=(person["person_id"])
+                    people << temp
                 end
             end
         end
@@ -77,28 +85,28 @@ class Persist
             rental_data = JSON.parse(rental_json)
 
             rental_data.each do |rental|
-                temp_book = isBook?(books, rental.book_id) 
-                temp_person = isPerson?(people, rental.person_id)
+                temp_book = self.isBook?(books, rental["book_id"]) 
+                temp_person = self.isPerson?(people, rental["person_id"])
                 unless temp_book == -1 || temp_person == -1
-                    rentals << Rental.new(rental.date, book[temp_book], person[temp_person])
+                    rentals << Rental.new(rental["date"], books[temp_book], people[temp_person])
                 end
             end
         end
-        return rentals
+       rentals
     end
 
     private
 
-    def isBook?(books, id)
+    def self.isBook?(books, id)
         books.each_with_index do |book, index|
            return index if book.book_id == id
         end
         -1
     end
 
-    def isPerson?(people, id)
-        people.each_with_index do |person|
-           return true if person.id == id
+    def self.isPerson?(people, id)
+        people.each_with_index do |person, index|
+           return index if person.id == id
         end
         -1
     end
