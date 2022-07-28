@@ -1,3 +1,6 @@
+require "json"
+
+=begin 
 def save(fileName, data)
     File.open("./files/#{data}.json", "w+") do |f|
       f << data.to_json
@@ -13,4 +16,18 @@ def load(data)
     data
     end
 end
+=end
 
+class A
+    def initialize(letter)
+       @b = letter 
+    end
+end
+
+store = [A.new("a"), A.new("b"), A.new("c")]
+
+puts store
+
+r1 = JSON.generate(store)
+
+puts r1

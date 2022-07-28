@@ -58,7 +58,7 @@ def main
     response = gets.chomp
     prompter(response, app)
   end
-  puts saveData(app)
+  saveData(app)
   
 end
 
