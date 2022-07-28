@@ -52,6 +52,21 @@ class Persist
         end
         books
     end
-
     
+    def self.load_people
+        people = []
+        if File.exists?("./database/people.json")
+            people_json = File.read("./database/people.json")
+            people_data = JSON.parse(people_json)
+
+            people_data.each do |person|
+                if person.class.to_s == "Student"
+                    people << Student.new(person.age, person.parent_permision, person.name)
+                else
+                    people << Teacher.new(person.specialization, person.age, person.name, person.permission)
+                end
+            end
+        end
+        people
+    end
 end
