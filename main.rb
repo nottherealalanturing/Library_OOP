@@ -33,7 +33,6 @@ def prompter(input, app)
   end
 end
 
-
 def main
   response = nil
   app = App.new
