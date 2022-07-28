@@ -69,4 +69,38 @@ class Persist
         end
         people
     end
+
+    def self.load_rentals(people, books)
+        rentals = []
+        if File.exists?("./database/rentals.json")
+            rental_json = File.read("./database/rentals.json")
+            rental_data = JSON.parse(rental_json)
+
+            rental_data.each do |rental|
+                temp_book = isBook?(books, rental.book_id) 
+                temp_person = isPerson?(people, rental.person_id)
+                unless temp_book == -1 || temp_person == -1
+                    rentals << Rental.new(rental.date, book[temp_book], person[temp_person])
+                end
+            end
+        end
+        return rentals
+    end
+
+    private
+
+    def isBook?(books, id)
+        books.each_with_index do |book, index|
+           return index if book.book_id == id
+        end
+        -1
+    end
+
+    def isPerson?(people, id)
+        people.each_with_index do |person|
+           return true if person.id == id
+        end
+        -1
+    end
+
 end
