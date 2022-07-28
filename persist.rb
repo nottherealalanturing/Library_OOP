@@ -1,4 +1,5 @@
 require 'json'
+require './book'
 
 class Persist
     
@@ -37,5 +38,20 @@ class Persist
         File.write("./database/rentals.json",  JSON.generate(rentals_array), mode: "w")
     end
 
- 
+    def self.load_books
+        books = []
+        if File.exists?("./database/books.json")
+            books_json = File.read("./database/books.json")
+            books_data = JSON.parse(books_json)
+
+            books_data.each do |book|
+                temp = Book.new(book.title, book.author)
+                temp.id=(book.id)
+                books << temp
+            end
+        end
+        books
+    end
+
+    
 end
