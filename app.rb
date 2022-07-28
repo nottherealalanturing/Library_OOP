@@ -4,11 +4,15 @@ require './rental'
 require './classroom'
 require './student'
 require './teacher'
+require './persist'
+
 class App
-  def initialize
-    @books = []
-    @people = []
-    @rentals = []
+  attr_reader :books, :people, :rentals
+
+  def initialize()
+    @books = Persist.load_books
+    @people = Persist.load_people
+    @rentals = Persist.load_rentals(@people, @books)
   end
 
   def list_all_books
