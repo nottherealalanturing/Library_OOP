@@ -6,15 +6,12 @@ RSpec.describe Teacher do
   end
 
   context 'when a new Teacher is created' do
-
     it 'should be an instance teacher class' do
-        expect(@teacher).to be_instance_of Teacher
+      expect(@teacher).to be_instance_of Teacher
     end
-  
-    it "should have an can_use_services method" do
-        expect(@teacher).to respond_to(:can_use_services?)
-     end
 
+    it 'should have an can_use_services method' do
+      expect(@teacher).to respond_to(:can_use_services?)
+    end
   end
 end
-
