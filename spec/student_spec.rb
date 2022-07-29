@@ -10,7 +10,7 @@ RSpec.describe Student do
     it 'should be an instance Student class' do
         expect(@student).to be_instance_of Student
     end
-  
+    
     it "should have an play_hooky method" do
         expect(@student).to respond_to(:play_hooky)
      end
