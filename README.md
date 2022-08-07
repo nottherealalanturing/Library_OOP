@@ -16,9 +16,8 @@ git clone git@github.com:nottherealalanturing/Library_OOP.git
 ```
 
 - cd into the project directory
-```terminal
-cd Library_OOP
-```
+```terminal cd Library_OOP ```
+
 ## Author
 
 
